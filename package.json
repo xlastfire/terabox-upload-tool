@@ -1,0 +1,22 @@
+{
+  "name": "terabox-upload-tool",
+  "version": "1.0.0",
+  "description": "git add",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "terabox",
+    "upload",
+    "file",
+    "storage",
+    "node"
+  ],
+  "author": "Nitesh Singh Bhandari",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "form-data": "^4.0.1"
+  }
+}
