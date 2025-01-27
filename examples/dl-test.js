@@ -1,16 +1,41 @@
-// syscfg APIへのリクエスト
-async function getSysCfg() {
-    const url = 'https://www.terabox.com/api/getsyscfg';
-    const params = {
+// トークンや共通パラメータの定義
+const config = {
+    appParams: {
         app_id: '250528',
         web: '1',
         channel: 'dubox',
         clienttype: '0',
-        jsToken: 'BDFC7E99221F980D72CA17B19C98F23E35D1C43EBD1B76F2CE493F27A1C2E7C71D7F637156999EF9A71106D82A4836DE040DA96397B95B7F95DDE4836EA0766B',
-        'dp-logid': '18397400250736220038',
-        cfg_category_keys: '[{"cfg_category_key":"web_download_to_pc_exp_flow_new","cfg_version":1},{"cfg_category_key":"web_download_to_pc","cfg_version":1}]',
+        jsToken: '3F3649BB89A2A6A09BB50936F9C72BF1D8AD957C2C90DFD89F8213A3150FB8BCCDEB94CC4F3F3D863287FE9BCA60922AF06C81F36045A823C1DD16CF69961185',
         version: '0',
         language_type: 'ja'
+    },
+    apiUrls: {
+        sysCfg: 'https://www.terabox.com/api/getsyscfg',
+        homeInfo: 'https://www.terabox.com/api/home/info',
+        download: 'https://www.terabox.com/api/download'
+    },
+    dpLogIds: {
+        sysCfg: '18397400250736220038',
+        homeInfo: '18397400250736220039',
+        download: '18397400250736220040'
+    },
+    downloadParams: {
+        sign: 'AbhLnIx+qyadDEqGJUP3bSdpltjQaLft5kzQnORsD8wnPtkuhkiV6A==',
+        timestamp: '1738019249',
+        need_speed: '0',
+        vip: '2',
+        bdstoken: '43bfe2c66a09d4e4561d68d6f4f10340'
+    }
+};
+
+// syscfg APIへのリクエスト
+async function getSysCfg() {
+    const { appParams, apiUrls, dpLogIds } = config;
+    const url = apiUrls.sysCfg;
+    const params = {
+        ...appParams,
+        'dp-logid': dpLogIds.sysCfg,
+        cfg_category_keys: '[{"cfg_category_key":"web_download_to_pc_exp_flow_new","cfg_version":1},{"cfg_category_key":"web_download_to_pc","cfg_version":1}]'
     };
 
     const response = await fetch(`${url}?${new URLSearchParams(params)}`, {
@@ -20,20 +45,16 @@ async function getSysCfg() {
         }
     });
 
-    const data = await response.json();
-    return data;
+    return response.json();
 }
 
 // home info APIへのリクエスト
 async function getHomeInfo() {
-    const url = 'https://www.terabox.com/api/home/info';
+    const { appParams, apiUrls, dpLogIds } = config;
+    const url = apiUrls.homeInfo;
     const params = {
-        app_id: '250528',
-        web: '1',
-        channel: 'dubox',
-        clienttype: '0',
-        jsToken: 'BDFC7E99221F980D72CA17B19C98F23E35D1C43EBD1B76F2CE493F27A1C2E7C71D7F637156999EF9A71106D82A4836DE040DA96397B95B7F95DDE4836EA0766B',
-        'dp-logid': '18397400250736220039'
+        ...appParams,
+        'dp-logid': dpLogIds.homeInfo
     };
 
     const response = await fetch(`${url}?${new URLSearchParams(params)}`, {
@@ -43,39 +64,31 @@ async function getHomeInfo() {
         }
     });
 
-    const data = await response.json();
-    return data;
+    return response.json();
 }
 
 // ダウンロードURL取得のための関数
 async function getDownloadUrl(fidlist) {
+    const { appParams, apiUrls, dpLogIds, downloadParams } = config;
+
+    // サブAPIから情報を取得
     const sysCfg = await getSysCfg();
     const homeInfo = await getHomeInfo();
 
     console.log('System Configuration:', sysCfg);
     console.log('Home Info:', homeInfo);
 
-    const downloadUrl = 'https://www.terabox.com/api/download';
-    
-    // ダウンロードパラメータの設定
+    const url = apiUrls.download;
     const params = {
-        app_id: '250528',
-        web: '1',
-        channel: 'dubox',
-        clienttype: '0',
-        jsToken: 'BDFC7E99221F980D72CA17B19C98F23E35D1C43EBD1B76F2CE493F27A1C2E7C71D7F637156999EF9A71106D82A4836DE040DA96397B95B7F95DDE4836EA0766B',
-        'dp-logid': '18397400250736220040',
-        fidlist: JSON.stringify(fidlist), // fidlistを渡す
+        ...appParams,
+        'dp-logid': dpLogIds.download,
+        fidlist: JSON.stringify(fidlist),
         type: 'dlink',
-        vip: '2',
-        sign: 'VeJPxoh1ryXIWRvdcBXzMXJvl9iJMry0sUyKk7FrD5ohO4wghBmZ7w==',
-        timestamp: '1737845700',
-        need_speed: '0',
-        bdstoken: 'bbc878665ecd53f583ce583d16deddd9'
+        ...downloadParams
     };
 
     // ダウンロードリクエスト送信
-    const response = await fetch(`${downloadUrl}?${new URLSearchParams(params)}`, {
+    const response = await fetch(`${url}?${new URLSearchParams(params)}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -84,7 +97,6 @@ async function getDownloadUrl(fidlist) {
 
     const data = await response.json();
 
-    // ダウンロードリンクが存在する場合、リンクを返す
     if (data.dlink && data.dlink.length > 0) {
         return data.dlink[0].dlink;
     } else {
@@ -99,19 +111,18 @@ async function dlFiles(fidlist) {
         return downloadLink;
     } catch (error) {
         console.error('Error:', error);
-        throw error; // エラーがあった場合は再度投げる
+        throw error;
     }
 }
 
 // 使用例
 (async () => {
     try {
-        const fidlist = [546136331131393]; // ダウンロード対象のファイルIDリスト
+        const fidlist = [217911186381995]; // ダウンロード対象のファイルIDリスト
         const downloadLink = await dlFiles(fidlist);
         console.log('Download Link:', downloadLink);
 
-        // ダウンロードリンクが取得できたら、URLを返す
-        return downloadLink;
+        return downloadLink; // 必要に応じてリンクを返す
     } catch (error) {
         console.error('Error:', error);
     }
