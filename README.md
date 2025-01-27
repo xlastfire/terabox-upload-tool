@@ -129,33 +129,33 @@ For getting your credentials, go to the terabox, create an account and follow th
 
 ![Login you account and open the developer tools](https://res.cloudinary.com/djjq0ds7o/image/upload/v1736944135/Screenshot_2025-01-15_164342_lqev64.png)
 Login you account and open the developer tools
-`<br>`
-`<br>`
-`<br>`
+<br>
+<br>
+<br>
 
 ![Go to network tab](https://res.cloudinary.com/djjq0ds7o/image/upload/v1736944135/Screenshot_2025-01-15_164430_clhj2j.png)
 Go to network tab
-`<br>`
-`<br>`
-`<br>`
+<br>
+<br>
+<br>
 
 ![Upload an image from left of your screen](https://res.cloudinary.com/djjq0ds7o/image/upload/v1736944135/Screenshot_2025-01-15_164628_hutnsg.png)
 Upload an image from left of your screen
-`<br>`
-`<br>`
-`<br>`
+<br>
+<br>
+<br>
 
 ![Look for the following appId and uploadId from following request ](https://res.cloudinary.com/djjq0ds7o/image/upload/v1736945073/Screenshot_2025-01-15_164845_1_fxuvj9.png)
 Look for 'appId' and 'uploadId' from following request
-`<br>`
-`<br>`
-`<br>`
+<br>
+<br>
+<br>
 
 ![Get the 'ndus' from the cookies in header section](https://res.cloudinary.com/djjq0ds7o/image/upload/v1736945222/Screenshot_2025-01-15_181119_zvnbt5.png)
 Get the 'ndus' from cookies in the header section
-`<br>`
-`<br>`
-`<br>`
+<br>
+<br>
+<br>
 
 ## Licence
 
