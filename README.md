@@ -11,7 +11,7 @@ A simple and efficient Node.js library for uploading files and fetching file lis
 
 ## Coming Soon (Open for Collaboration)
 
-* Fetch Files: Retrieve the resources download URL and add URL Path in JSON  object returned by exiting [fetchFileList() ](.\lib\index.js)method .
+* Fetch Files: Retrieve the resources download URL and add URL Path in JSON  object returned by exiting [fetchFileList() ](./lib/index.js)method .
 * Delete Files: Remove files from your Terabox storage directly using this library.
 
 ## Installation
@@ -159,4 +159,4 @@ Get the 'ndus' from cookies in the header section
 
 ## Licence
 
-This project is licensed under the [MIT License.](.\LICENSE)
+This project is licensed under the [MIT License.](./LICENSE)
