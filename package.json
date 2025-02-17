@@ -1,7 +1,11 @@
 {
   "name": "terabox-upload-tool",
-  "version": "1.1.0",
-  "description": "git add",
+  "version": "1.2.1",
+  "description": "A simple and efficient Node.js library for uploading files and fetching file list with download links from TeraBox storage. This tool streamlines the process of file uploads while offering customization options such as directory selection.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pahadi10/terabox-upload-tool"
+  },
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +17,7 @@
     "storage",
     "node"
   ],
+  "homepage": "https://github.com/Pahadi10/terabox-upload-tool#readme",
   "author": "Nitesh Singh Bhandari",
   "license": "MIT",
   "dependencies": {
