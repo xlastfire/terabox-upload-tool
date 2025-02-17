@@ -8,11 +8,16 @@ A simple and efficient Node.js library for uploading files and fetching file lis
 * Custom Directory Support: Specify the directory where the file should be uploaded.
 * Progress Tracking: Monitor the upload progress in real-time.
 * Fetch File List: Fetch file list from any directory.
+* Get direct file download link
 
 ## Coming Soon (Open for Collaboration)
 
-* Fetch Files: Retrieve the resources download URL and add URL Path in JSON  object returned by exiting [fetchFileList() ](./lib/index.js)method .
+* Fetch Files: Retrieve the resources download URL and add URL Path in JSON  object returned by existing [fetchFileList() ](./lib/index.js)method . ✅
 * Delete Files: Remove files from your Terabox storage directly using this library.
+* Video Streaming: Support for streaming videos.
+* Fetch Upload History
+* Fetch Download History
+* Restructure code and files
 
 ## Installation
 
@@ -79,21 +84,17 @@ Future Enhancements (Open Collaboration)
 
 We are actively seeking contributors to add the following features:
 
-1. Fetch Files:
-
-   * Provide options to filter by file types, size, or date modified.
-   * Need to Implement add resouces URL in file list objects.
-2. Delete Files:
+1. Delete Files:
 
    * Enable users to delete specific files or directories from their Terabox storage.
    * Include safeguards like confirmation prompts before deletion.
-3. Error Handling Enhancements:
+2. Error Handling Enhancements:
 
    * Improve error messages for easier debugging and user guidance.
-4. Automated Tests:
+3. Automated Tests:
 
    * Add test cases to ensure reliability and robustness.
-5. Documentation Updates:
+4. Documentation Updates:
 
    * Expand guides with screenshots and example workflows.
 
@@ -160,3 +161,5 @@ Get the 'ndus' from cookies in the header section
 ## Licence
 
 This project is licensed under the [MIT License.](./LICENSE)
+
+[Github](https://github.com/Pahadi10/terabox-upload-tool)
