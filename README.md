@@ -1,20 +1,23 @@
 # Terabox Upload Tool
 
-A simple and efficient Node.js library for uploading files to [TeraBox](https://www.terabox.com/wap) storage. This tool streamlines the process of file uploads while offering customization options such as directory selection.
+A simple and efficient Node.js library for uploading files and fetching file list from [TeraBox](https://www.terabox.com/wap) storage. This tool streamlines the process of file uploads while offering customization options such as directory selection.
 
 ## Features
 
 * File Upload: Easily upload files to Terabox storage.
 * Custom Directory Support: Specify the directory where the file should be uploaded.
 * Progress Tracking: Monitor the upload progress in real-time.
-
+* Fetch File List: Fetch file list from any directory.
+* Get direct file download link
 
 ## Coming Soon (Open for Collaboration)
 
-* Fetch Files: Retrieve the files stored in your Terabox account.
+* Fetch Files: Retrieve the resources download URL and add URL Path in JSON  object returned by existing [fetchFileList() ](./lib/index.js)method . ✅
 * Delete Files: Remove files from your Terabox storage directly using this library.
-
-
+* Video Streaming: Support for streaming videos.
+* Fetch Upload History
+* Fetch Download History
+* Restructure code and files
 
 ## Installation
 
@@ -22,7 +25,6 @@ Install the package using npm:
 
 ```bash
 npm install terabox-upload-tool
-
 ```
 
 ## Getting Started
@@ -39,7 +41,9 @@ const credentials = {
 };
 
 ```
+
 ### Uploading a File
+
 To upload a file, create an instance of TeraboxUploader and specify the file path.
 
 #### Example: Save File to a Specific Directory
@@ -47,44 +51,52 @@ To upload a file, create an instance of TeraboxUploader and specify the file pat
 ```javascript
 const uploader = new TeraboxUploader(credentials);
 
-const filePath = './path/to/your/file.jpg';
+async function uploadFile() {
+  try {
+    const result = await uploader.uploadFile(filePath, showProgress, '/myUploads');
+    if (result.success) {
+      console.log('File uploaded successfully!');
+      console.log('File details:', result.fileDetails);  
+    } else {
+      console.log('Upload failed:', result.message);  
+    }
+  } catch (error) {
+    console.log('An error occurred during the upload:', error.message); 
+  }
+}
 
-// Uploads to '/my-uploads'
-uploader.uploadFile(filePath, (uploaded, total) => {
-  console.log(`Progress: ${(uploaded / total * 100).toFixed(2)}%`);
-}, '/my-uploads'); 
 ```
 
-#### Example: Save File to Root Directly
+#### Example: Fetch a list of files from Terabox
 
 ```javascript
-
-// Uploads to '/' 
-uploader.uploadFile(filePath, (uploaded, total) => {
-  console.log(`Progress: ${(uploaded / total * 100).toFixed(2)}%`);
-}, '/my-uploads'); 
+async function fetchFileList() {
+  try {
+   const fileList=await uploader.fetchFileList('/myUploads');  
+    console.log('Files in your directory:', fileList);  
+  } catch (error) {
+    console.log('Error fetching file list:', error.message); 
+  }
+}
 ```
 
-## Future Enhancements (Open Collaboration)
+Future Enhancements (Open Collaboration)
+
 We are actively seeking contributors to add the following features:
 
-1. Fetch Files:
-    * Implement functionality to list files stored in Terabox directories.
-    * Provide options to filter by file types, size, or date modified.
+1. Delete Files:
 
-2. Delete Files:
-    * Enable users to delete specific files or directories from their Terabox storage.
-    * Include safeguards like confirmation prompts before deletion.
+   * Enable users to delete specific files or directories from their Terabox storage.
+   * Include safeguards like confirmation prompts before deletion.
+2. Error Handling Enhancements:
 
-3. Error Handling Enhancements:
-    * Improve error messages for easier debugging and user guidance.
+   * Improve error messages for easier debugging and user guidance.
+3. Automated Tests:
 
-4. Automated Tests:
-    * Add test cases to ensure reliability and robustness.
+   * Add test cases to ensure reliability and robustness.
+4. Documentation Updates:
 
-5. Documentation Updates:
-
-    * Expand guides with screenshots and example workflows.
+   * Expand guides with screenshots and example workflows.
 
 ## Contribution Guidelines
 
@@ -96,9 +108,9 @@ We welcome contributions from the community! Here’s how you can get started:
 4. Feel free to open issues for feature requests or bug reports.
 
 ## Resources for Developers
+
 * [Node.js File System Documentation](https://nodejs.org/api/fs.html)
 * [Chrome Dev-Tools (Networks)](https://developer.chrome.com/docs/devtools/network)
-
 
 <br>
 
@@ -146,12 +158,8 @@ Get the 'ndus' from cookies in the header section
 <br>
 <br>
 
-
-
-
 ## Licence
 
-This project is licensed under the [MIT License.]() 
+This project is licensed under the [MIT License.](./LICENSE)
 
-
-
+[Github](https://github.com/Pahadi10/terabox-upload-tool)
