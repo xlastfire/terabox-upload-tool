@@ -6,6 +6,8 @@ const credentials = {
   ndus: 'your-ndus-token',  // Replace with your actual ndus token
   appId: 'your-app-id',     // Replace with your actual appId
   uploadId: 'your-upload-id', // Replace with your actual uploadId
+  jsToken: 'your-js-token', // Replace with your jsToken
+  browserId: 'your-browser-id' // Replace with your browserId
 };
 
 // Step 2: Create a new instance of the TeraboxUploader with your credentials
